@@ -31,6 +31,7 @@ arrowLeft.addEventListener('click', () => {
     index--;
   }
   bannerImg.src = `./assets/images/slideshow/${slides[index].image}`;
+  updateDots();
 });
 
 arrowRight.addEventListener('click', () => {
@@ -40,14 +41,31 @@ arrowRight.addEventListener('click', () => {
     index++;
   }
   bannerImg.src = `./assets/images/slideshow/${slides[index].image}`;
+  updateDots();
 });
 
 for (let i = 0; i <= slides.length - 1; i++) {
   const dot = document.createElement('div');
+  dot.addEventListener('click', () => {
+    index = i;
+    bannerImg.src = `./assets/images/slideshow/${slides[index].image}`;
+    updateDots();
+  });
   if (i === index) {
     dot.className = 'dot dot_selected';
   } else {
     dot.className = 'dot';
   }
   dots.appendChild(dot);
+}
+
+function updateDots() {
+  const dotsArray = Array.from(dots.children);
+  dotsArray.forEach((dot, i) => {
+    if (i === index) {
+      dot.className = 'dot dot_selected';
+    } else {
+      dot.className = 'dot';
+    }
+  });
 }
